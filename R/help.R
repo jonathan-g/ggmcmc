@@ -11,6 +11,6 @@
 #' @importFrom tidyr spread gather
 #' @importFrom dplyr tbl_df data_frame select filter mutate arrange group_by ungroup summarize bind_rows left_join inner_join do sample_frac %>%
 #' @docType package
-#' @name ggmcmc
-#' @aliases ggmcmc ggmcmc-package
+#' @name jgmcmc
+#' @aliases jgmcmc jgmcmc-package
 NULL

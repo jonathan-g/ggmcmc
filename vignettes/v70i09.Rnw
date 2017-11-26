@@ -150,7 +150,7 @@ The radon measurement ($y_{i}$) is explained by varying intercepts ($\alpha_{j}$
 This is the object that will be employed in the first part of the article.
 
 <<message=FALSE, warning=FALSE, eval=FALSE>>=
-library("ggmcmc")
+library("jgmcmc")
 data("radon")
 s.radon.short <- radon$s.radon.short
 @

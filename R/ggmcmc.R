@@ -63,7 +63,7 @@ ggmcmc <- function(D, file = "ggmcmc-output.pdf", family = NA, plot = NULL,
       "output:\n  html_document:\n    toc: yes\n    self_contained: TRUE\n    dev: ",
       dev_type_html,
       "\n---\n\n",
-      "```{r echo=FALSE}\nlibrary(ggmcmc)\n",
+      "```{r echo=FALSE}\nlibrary(jgmcmc)\n",
       "load('tmp-ggmcmc.RData')\n",
       sep = ""))
     if (dev_type_html == "png") {

@@ -24,10 +24,10 @@
 #' ggs_caterpillar(ggs(s))
 #' ggs_caterpillar(list(A=ggs(s), B=ggs(s))) # silly example duplicating the same model
 ggs_caterpillar <- function(D, family=NA, X=NA,
-  thick_ci=c(0.05, 0.95), thin_ci=c(0.025, 0.975),
-  thick_size = 1.5, thin_size = 0.5, point_size = 3,
-  line=NA, linetype = "dashed", linesize = 0.5,
-  horizontal=TRUE, model_labels=NULL, greek=FALSE) {
+                            thick_ci=c(0.05, 0.95), thin_ci=c(0.025, 0.975),
+                            thick_size = 1.5, thin_size = 0.5, point_size = 3,
+                            line=NA, linetype = "dashed", linesize = 0.5,
+                            horizontal=TRUE, model_labels=NULL, greek=FALSE) {
 
   # Manage subsetting a family of parameters
   if (!is.na(family)) {
@@ -43,8 +43,10 @@ ggs_caterpillar <- function(D, family=NA, X=NA,
     # get the name of the numerical variable
     x.name <- names(X)[which(names(X)!="Parameter")]
     # check that the x is numerical
-    if (!is.numeric(X[,which(names(X)==x.name)])) {
-      stop("X has a non numeric variable to plot against. The variable different than 'Parameter' must be numeric.")
+    if (! is.numeric(pull(X, x.name))) {
+      xx = pull(X, x.name)
+      stop("X has a non numeric variable, ", x.name, " to plot against. The variable different than 'Parameter' must be numeric.",
+           "(type = ", typeof(xx), ", class = ", class(xx), ")")
     }
     # Set x present to distinguish between plots against x or without
     x.present <- TRUE
@@ -70,7 +72,7 @@ ggs_caterpillar <- function(D, family=NA, X=NA,
 
       # Transform list elements into wide dfs with thick and thin limits
       dcm <- dplyr::bind_rows(dcm, ci(D[[i]], thick_ci = thick_ci, thin_ci = thin_ci) %>%
-        dplyr::mutate(Model=model.label))
+                                dplyr::mutate(Model=model.label))
     }
 
   } else if (is.data.frame(D)) { # D is a data frame, and so a single model is passed
@@ -88,7 +90,7 @@ ggs_caterpillar <- function(D, family=NA, X=NA,
     f <- ggplot(dcm, aes_string(x="median", y=x.name))
   }
 
-    # Add a line to remark a specific point
+  # Add a line to remark a specific point
   if (!is.na(line)) {
     f <- f + geom_vline(xintercept=line, linetype=linetype, size = linesize)
   }
@@ -128,3 +130,4 @@ ggs_caterpillar <- function(D, family=NA, X=NA,
 
   return(f)
 }
+
